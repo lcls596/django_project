@@ -11,3 +11,20 @@ Exemplu:
         "content": content
     })
 
+
+Ex 22 Implementarea unui ViewSet pentru Pizza în Django REST
+
+Creează modelul Pizza în fisierul models.py, care va conține următoarele câmpuri:
+
+name: un șir de caractere (CharField)
+pizza_type: un șir de caractere (CharField)
+weight: un număr întreg (IntegerField) (grame)
+size: un număr întreg (IntegerField) (cm)
+
+Creează un serializer pentru modelul Pizza utilizând ModelSerializer, in serializers.py
+
+Creează un ViewSet pentru modelul Pizza, similar cu BookCustomViewSet, permițând operațiuni CRUD (Create, Read, Update, Delete).
+
+Inregistreaza acest ViewSet in router-ul default din urls.py, pe ruta "pizza"
+
+Testează API-ul folosind Django Admin.
