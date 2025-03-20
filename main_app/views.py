@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from .models import Book
-from .serializers import BookSerializer, HWDataSerializer
+from .serializers import BookSerializer, HWDataSerializer, PizzaSerializer
 from rest_framework import viewsets
 from rest_framework.response import Response
 
@@ -125,6 +125,40 @@ def get_books(request: HttpRequest):
             return HttpResponse(json.dumps(books[id]), status=200)
         else:
             return HttpResponse("Wrong ID given!", status=400)
+
+
+class PizzaViewSet (viewsets.ModelViewSet):
+    queryset = Pizza.objects.all()
+    serializer_class = PizzaSerializer
+
+class BookCustomViewSet(viewsets.ModelViewSet):
+    def list(self, request):
+        pizza = Pizza.objects.all()
+        serializer = PizzaSerializer(pizza, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request):
+        try:
+            pizza = Pizza.objects.get(pk=None)
+            serializer= PizzaSerializer(pizza)
+            return Response (serializer.data)
+        except Pizza.DoesNotExist:
+            return Response ({"error": "Pizza not found!"}, status=status.HTTP_404_NOT_FOUND)
+
+    def create(self, request):
+        serializer = PizzaSerializer (data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, pk):
+        try:
+            pizza = Pizza.objects.get(pk=pk)
+            pizza.delete ()
+            return Response ({'message':'pizza deleted successfully!'}, status=status.HTTP_200_OK)
+
 
 
 

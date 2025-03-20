@@ -11,3 +11,8 @@ class HWDataSerializer(serializers.Serializer):
     first_list = serializers.ListField(child=serializers.IntegerField(), allow_empty=False)
     second_list = serializers.ListField(child=serializers.IntegerField(), allow_empty=False)
 
+class PizzaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = pizza
+        fields = "__all__"
+
