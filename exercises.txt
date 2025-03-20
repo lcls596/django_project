@@ -1,0 +1,13 @@
+Creaza trei views in views.py care sa returneze browserului web cele trei pagini web "home.html", "register.html" si "books.html". Leaga-le de url-urile "home", "register" si "books"
+
+
+Creaza o lista de books in views.py, care sa contina urmatoarele date:
+book_titles = ["1984", "To Kill a Mockingbird", "The Great Gatsby", "Moby-Dick", "Pride and Prejudice"]
+
+Folosindu-te de argumentul de context din functia render, trimite catre template-ul de books.html datele din book_titles, sa fie afisate utilizatorului.
+
+Exemplu:
+    return render(request, 'books.html', {
+        "content": content
+    })
+
